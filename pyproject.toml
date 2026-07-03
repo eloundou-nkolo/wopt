@@ -1,0 +1,61 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "wopt"
+version = "0.1.0"
+description = "Mini audit de sécurité web en ligne de commande : headers, TLS, cookies, CORS, fichiers exposés."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Eloundou Nkolo Ryan" }
+]
+keywords = ["security", "web", "audit", "cli", "http-headers", "tls", "cors"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+    "Topic :: Software Development :: Quality Assurance",
+]
+
+dependencies = [
+    "httpx",
+    "typer",
+    "rich",
+    "jinja2",
+    "cryptography",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-httpx",
+    "ruff",
+]
+
+[project.scripts]
+wopt = "wopt.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/eloundou-nkolo/wopt"
+Repository = "https://github.com/eloundou-nkolo/wopt"
+Issues = "https://github.com/eloundou-nkolo/wopt/issues"
+Portfolio = "https://eloundounkolo.com"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/wopt"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

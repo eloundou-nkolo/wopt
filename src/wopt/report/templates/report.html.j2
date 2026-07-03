@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Rapport wopt — {{ result.target }}</title>
+<style>
+  :root {
+    --bg: #0f1115; --card: #171a21; --text: #e8e8ea; --muted: #9aa0aa;
+    --critical: #e5484d; --high: #f76b15; --medium: #f5a623; --low: #4c9be8; --info: #6b7280; --pass: #3ecf8e;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; padding: 40px 20px; }
+  .container { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 1.4rem; word-break: break-all; }
+  .score-badge { display: inline-flex; align-items: center; justify-content: center; width: 72px; height: 72px; border-radius: 50%; font-size: 2rem; font-weight: 700; background: var(--card); border: 3px solid var(--pass); }
+  .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 30px; }
+  .summary { display: flex; gap: 10px; flex-wrap: wrap; margin: 20px 0 30px; }
+  .pill { padding: 4px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 600; }
+  .finding { background: var(--card); border-radius: 10px; padding: 16px 20px; margin-bottom: 12px; border-left: 4px solid var(--muted); }
+  .finding.critical { border-color: var(--critical); }
+  .finding.high { border-color: var(--high); }
+  .finding.medium { border-color: var(--medium); }
+  .finding.low { border-color: var(--low); }
+  .finding.info { border-color: var(--info); }
+  .finding h3 { margin: 0 0 8px; font-size: 1rem; }
+  .finding p { margin: 4px 0; color: var(--muted); font-size: 0.9rem; }
+  .finding .reco { color: var(--text); }
+  .sev-tag { display: inline-block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+  .sev-tag.critical { background: var(--critical); }
+  .sev-tag.high { background: var(--high); }
+  .sev-tag.medium { background: var(--medium); color: #1a1a1a; }
+  .sev-tag.low { background: var(--low); }
+  .sev-tag.info { background: var(--info); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 0.8rem; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="score-badge">{{ result.score }}</div>
+  <h1>Rapport de sécurité — {{ result.target }}</h1>
+  <div class="meta">Scanné le {{ result.scanned_at.strftime("%d/%m/%Y à %H:%M UTC") }} · {{ "%.0f"|format(result.duration_ms) }} ms · Score {{ result.score_value }}/100</div>
+
+  <div class="summary">
+    {% for sev, count in summary.items() if count > 0 %}
+      <span class="pill {{ sev }}">{{ sev }} : {{ count }}</span>
+    {% endfor %}
+  </div>
+
+  {% for finding in findings %}
+  <div class="finding {{ finding.severity.value }}">
+    <span class="sev-tag {{ finding.severity.value }}">{{ finding.severity.value }}</span>
+    <h3>{{ finding.title }}</h3>
+    <p>{{ finding.description }}</p>
+    <p class="reco">→ {{ finding.recommendation }}</p>
+    {% if finding.evidence %}<p><code>{{ finding.evidence }}</code></p>{% endif %}
+  </div>
+  {% else %}
+  <p>Aucun problème détecté.</p>
+  {% endfor %}
+
+<footer>Généré par <a href="https://github.com/eloundou-nkolo/wopt">wopt</a> — 
+audit de sécurité web open-source, par 
+<a href="https://eloundounkolo.com">Eloundou Nkolo Ryan</a></footer>
+</div>
+</body>
+</html>

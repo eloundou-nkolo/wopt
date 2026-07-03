@@ -1,0 +1,5 @@
+httpx
+typer
+rich
+jinja2
+cryptography
