@@ -5,7 +5,7 @@ test audit de sécurité web en ligne de commande — non-intrusif, sans configu
 `wopt` scanne un site web et vérifie les points de sécurité les plus fréquemment négligés : en-têtes HTTP, configuration TLS, cookies, CORS, et exposition de fichiers sensibles. Conçu pour s'intégrer facilement à un pipeline CI/CD.
 ## Auteurs
 
-Développé par [Eloundou Nkolo Ryan](https://eloundounkolo.com) — développeur web & intégration de solutions numériques.[eloundou nkolo ryan] (https://eloundounkolo.com)
+Développé par [Eloundou Nkolo Ryan](https://eloundounkolo.com) — développeur web & intégration de solutions numériques.
 
 ## Installation
 
